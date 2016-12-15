@@ -1,0 +1,112 @@
+/tz_jsp 工程名
+	/tz_jsp/src 工程的源文件
+			java文件，需要被编译的文件，最终会吧源文件下面的.java文件编译
+			/WebRoot/WEB-INF/classes目录
+	/tz_jsp/WebRoot  
+		资源文件 js,css,图片 静态页面.html等
+		/tz_jsp/WebRoot/META-INF
+		/tz_jsp/WebRoot/WEB-INF
+		/tz_jsp/WebRoot/index.jsp
+		/tz_jsp/readme.txt
+		
+		
+新建一个工程
+	新建 com.xiaolon.LoginServlet.java
+	新建一个页面:login.jsp
+	 定义form input name="username" name="password" 
+	 method="p	ost/get"
+	 
+	 参数获取,request.getParameter
+	乱码
+	
+	//输出
+	res.setCharacterEncoding("UTF-8");
+	response,get..
+	
+	
+	//跳转页面的额问题
+	
+	jsp是一个java类
+	
+	
+	
+	
+	/*
+	把服务器端的数据传递给浏览器jsp页面 那么需要用到作用域
+	通用：setAttribute(key,value);getAttribute(key,value);removeAttribute(key);
+	session.invalidate() 会话注销  退出登录
+	
+	pageContext  页面作用域 PageContext
+	request 请求作用域HttpServletRequest
+	session 会话 HttpSession
+	会话是通过request对象的创建而来
+	HttpSession session = request.getSession();
+	session.setAttribute("userName", "session_"+username);//保存在浏览器端
+	同时在浏览器端生成叫jsessionId 存在浏览器cookie中 每次用户发起新的请求 浏览器内部会在服务器端去获取数据 浏览器关闭就消失
+	用处:
+		1.用户登陆的信息在session中 
+		2.验证码,手机验证码
+	
+	application  服务器全局作用域 ServletContext
+	容器级别的作用域 容器tomcat关闭就消失 不经常修改的数据就可以缓存在application 和浏览器无关
+	
+	pageContext<request<session<application
+	
+	/*
+		开发流程：传递参数
+		1:form 元素name通过submit提交 <input name="username"
+		2:ajax 中data:{"username":"keke","password":"123456"}
+		3:URL地址中:http://localhost:8080/tz_desk/?username=keke&password=123456&age=12
+		--如果获取参数
+		String name = request.getParameter("username")
+		String[] args = request.getParameterValues("hobbys");
+		
+		--怎么获取保存数据库中
+		
+		--又怎么把数据返回给页面
+		1:如果ajax只有通过response.getWriter.print("");
+		2:就是讲数据放入作用域中，通过表达式或者el表达式进行获取
+		
+		struts2 
+			1:生成get sett 赋值，放入作用request
+			2:ajax--type="json"
+			
+		springmvc -
+		如果获取页面传递过来的参数,如何初始化request和response
+		如何返回的，如何跳转页面
+	*/
+	
+	
+	
+	九大隐士对象:
+	
+	1.输入和输出类型:reuqest response out 
+		request====HttpServletRequest
+		response====HttpServletResponse
+		out==reponse.getWrite();
+	
+	2.作用域类型： pageContext request session application 
+		pageContext==PageContext
+		session==HttpSession=request.getSession()
+		application ====ServletContext==request.getServetContext();/config.getServletContext()
+		对应的方法:setAttribute getAttribute removeAttribute
+		作用域主要是为了解决：服务器端传递给浏览器数据的问题。
+		a:也就说如果你你想把服务器的数据传递给浏览器的。记得一定要讲我们对应数据先存储在作用域中
+		b:然后通过表达式或者EL表达式获取作用域中的值
+		比如：
+		request.setAttribute("username",1);
+		页面中获取的方式
+		<%=request.getAttribute("username")%>
+		${username}
+		
+		
+	3.Servlet对象:
+		page  ：jsp页面对应的servlet实例
+		config ：ServletConfig 页面对象本身 初始化数据传递给jsp页面
+		错误对象：exception
+	
+		
+	
+	
+	
+	

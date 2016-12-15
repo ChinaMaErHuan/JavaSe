@@ -1,0 +1,17 @@
+		// 生成setter和getter 点击代码块 右键 source-->generate getters and setters 或者alt +shift + s
+		// 代码整理 ctrl+shift+f
+		// 代码注释ctrl+shift+/
+		// 单行注释 ctrl+shift+c
+		ctrl+shift+r 查找java类
+		// 修改类的名字 和 包的名字 jsp的名字 f2
+		//快速复制 ctrl+alt+向上/下键 
+		//代码一行的移动alt+向上向下键
+		//代码名称的快速改变 选择一个变量 按下ctrl+1 在按inter键 再改变
+		//ctrl+shift+o--导入包
+		//ctrl+o 查看当前类里面所有的方法和属性
+		//ctrl+l 定位行
+		//ctrl+h 搜索 全部检索
+		
+		ctrl+d  删除一行
+		
+		end键定位一行的最后

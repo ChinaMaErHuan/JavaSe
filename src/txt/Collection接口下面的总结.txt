@@ -1,0 +1,140 @@
+	java为什么要引入集合？
+	在java中数组一旦被定义 长度是不能修改的 我们在开发中经常会遇到元素的添加和删除 数组是实现不了的 所以。。。
+	/************************************************************************************/
+	Collection 接口---
+	/************************************************************************************/
+	  Set---Set里面的元素是不可重复的
+	  		HashSet----LinkedHashSet
+	  		HashSet是无序的实现机制是HashCode和equals
+		  		 //hashCode是jdk根据对象的地址或者字符串或者数字算出来的int类型的数值 详细了解请 参考 [1]
+				 //public int hashCode()返回该对象的哈希码值。支持此方法是为了提高哈希表（例如 java.util.Hashtable
+				 // 提供的哈希表）的性能。
+				// 如果两个hashCode()返回的 结果相等，则两个对象的equals方法不一定相等
+				// 比较一定是通过比较值的 ==比较比较的是内存地址和值 而equals比较的是值 相同数据类型用equals
+	  		LinkedHashSet是有序的 实现机制 链表
+	  		LinkedHashSet<E>有序的 保存了元素插入的顺序是HashSet的子类 性能差一些
+			 链表来维护有序序列--性能要比hashset要差一些--多线程--任务分发
+	---------------------------------------------------------------------------------------------------
+	  		
+	  		SortedSet---TreeSet
+	  		// TreeSet---红黑树算法--来维护元素的顺序---内置了一个排序器 默认是升序的 也可以定义自己的排序器
+			// TreeSet会调用集合中的一个方法叫conpareTo(Object o)的方法比较元素的大小关系，这种方式排序叫自然排序(升序),
+			// 如果你想你通过改变排序的规则，那么你可以自定一个类实现Comparator接口，覆盖compare方法的进行比较。
+			// jdk为Comparator接口提供了一个默认排序机制：
+			// 1:八种封装数据类型和BigDecimal和BigInteger等都是根据数值的大小进行比较排序
+			// 2:Character,String会自动根据字符或者字符串的unicode值进行比较
+			// 3:Date，Time都是根据日期比较来进行排序
+			
+			
+			TreeSet拥有自己的方法 
+			System.out.println("first==="+set.first());
+			System.out.println("last==="+set.last());
+			System.out.println(set.lower(15));//返回集合中小于指定元素之前的最大元素 // set[set.indexOf(15)-1]
+			System.out.println(set.higher(15));//返回集合中大于指定元素之前的最大元素 // set[set.indexOf(15)+1]
+			System.out.println(set.subSet(-3,11));//var arr = set.slice(set.indexOf(-3),set.indexOf(11));
+			System.out.println(set.headSet(1));//返回一个小于-3的集合var arr = set.slice(0,set.indexOf(1));
+			System.out.println(set.tailSet(10));//返回一个大于等于5的集合 var ar = set.slice(set.indexOf(15),set.length);
+	 ------------------------------------------------------------------------------------------------------ 
+	  		EnumSet--(枚举)
+	  		
+	  		/**
+			 * HashSet和TreeSet是Set的两个典型的实现，到底如何选择它们两者呢?HashSet的性能总是比TreeSet好，特别是添加，
+			 * 查询元素等操作，因为TreeSet需要额外的红黑树算法来维护集合的顺序。只有当需要一个保持排序的Set时，我们才会用到TreeSet，
+			 * 其他情况下都是使用HashSet。 HashSet还有一个子类，LinkedHashSet,对于普通的插入，删除操作，
+			 * LinkedHashSet比HashSet性能要差一些
+			 * ，只是由于维护链表所带来的额外开销造成的。但由于有了链表，遍历LinkedHashSet会更快。
+			 * EnumSet是所有Set集合中性能最好的，但它只能保存同一个枚举类的枚举值作为集合元素。
+			 * 必须指出的是：它们三个都不是线程安全的，如果有多个线程同时方位一个set集合
+			 * ，并且有超过一个线程修改了该集合，则必须通过手动的方式保证Set集合的同步
+			 * ，可以通过Collections的工具类的SynchronizedSortedSet方法来包装该Set集合
+			 * ，此操作最好在创建时进行，以防止对Set集	的意外非同步访问。例如： SortedSet s =
+			 * Collections.synchronizedSortedSet(new HashSet());
+			 */
+	  		
+	 /**********************************************************************************************/
+	  		
+	  在Collection接口下面还有List  List:实现的原理是数组 元素是有序的 可重复的 有默认的索引 就是动态数组
+	  		List---Vector(线程安全的)---Stack Vector性能比较差 开发用Queue
+	  			---ArrayList----非线程安全的
+	  			ArrayList---jdk1.5以后引入的 默认的长度是10 一旦超过就调用扩展因子并惊进行拷贝扩展为原来的1.5倍
+	  			
+	  			--LinkedList---队列+list
+	  			LinkedList内部已链表的形式保存集合元素，随机访问元素的性能较差，但是在插入，删除元素时性能比较出色
+	  			虽然Vector也是以数组的形式来存储集合元素，但是它实现了线程同步，所以各方面性能都比较差。
+	  			
+	  			
+	  		在开发中我们大部分时候是使用ArrayList，但是在牵涉到元素的插入和删除的时候包括大量的数据的集合的操作 
+			用LinkedList比较合理因为LinkedList是通过一种队列去维护数组的 
+			
+			
+				
+		关于使用List的建议：
+		1:如果在遍历List集合上，建议使用ArrayList和Vector,因为LinkedList是链表实现的，他们采用的是Iterator的方式遍历集合元素。
+		2:如果在经常执行插入，删除操作来改变包含大量的数据的时候，考虑使用LinkedList.因为使用ArrayList可能需要经常重新分配内部数组的长度，性能较差。
+		3:除了Vector是线程安全，其他都是非线程安全的包括LinkedList,但是Vector又是历史遗留，不推荐使用，如果要保证线程安全都可以使用
+		Collections. Collections.synchronizedList(List list);
+	  			
+	  			
+	  List都可以通过.sort方法来排序		
+	 /*****************************************************************************************/
+	 
+	 
+	 Collection接口下面还有Queue
+	 
+	 		ArrayDeque添加元素的方式可以是.add和.offer getFirst  getLast  
+	 		//获得头部和尾部
+	 		peekFirst peekLast
+	 		//去头去尾
+	 		poolFirst poolLast
+	 		
+	 		
+	 		
+	 		PriorityQueue---优先队列   二叉树 二叉堆 堆排序 这些以后的研究
+	/***********************************************************************************************/			
+		
+		
+	  			
+	  			
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  	
+			  Arrays.asList(a)数组转集合 	a是数组
+			  Integer[] nums2 = new Integer[set.size()];
+			  set.toArray(nums2)/集合转成数组 nums2是存放set的数组	
+	  		
+	  		
+	  		

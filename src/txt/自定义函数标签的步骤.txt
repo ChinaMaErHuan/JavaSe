@@ -1,0 +1,24 @@
+模拟jstl中functions的标签库
+
+1:第一步：定义个TzFunctions.java
+2：第二步：在这个类中定义方法必须是静态方法
+
+3:在web-inf/meta-inf定义个xxx.tld文件,(必须在此目录下)
+4:讲写好的函数和类配置到对应xxx.tld文件中(注册标签)
+
+5:通过指令的<%@taglib uri="/WEB-INF/目录/xxx.tld" prefix="tz"%>
+6:使用标签:格式${tz:方法名称(参数1,参数2,....)}
+
+
+解说自定函数标签：
+<function>
+	<!--对你这个业务标签的描述-->
+    <description> 格式化日期 </description>
+    <1--标签的名称，最好和方法名称同名-->
+    <name>formatDate</name>
+    <!--代表标签类-->
+    <function-class>com.tz.tld.TzFunctions</function-class>
+    <!--对应执行的方法的名称，和返回值-->
+    <function-signature>java.lang.String trim(java.lang.String)</function-signature>
+    <example>举例: ${tz:formatDate(new Date(),'yyyy-MM-dd HH:mm:ss')}</example>  
+ </function>

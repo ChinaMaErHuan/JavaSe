@@ -1,0 +1,25 @@
+/*
+	开发流程：
+	第一步：如何传递参数
+	1:form 元素name通过submit提交 <input name="username"
+	2:ajax 中data:{"username":"keke","password":"123456"}
+	3:URL地址中:http://localhost:8080/tz_desk/?username=keke&password=123456&age=12
+	
+	
+	
+	第二步：如果获取参数
+	String name = request.getParameter("username")
+	String[] args = request.getParameterValues("hobbys");
+	
+	
+	
+	第三步：怎么获取保存数据库中
+	
+	
+	
+	第四步：又怎么把数据返回给页面
+	1:如果ajax只有通过response.getWriter.print("");
+	2:就是讲数据放入作用域中，通过表达式或者el表达式进行获取
+*/
+
+务必严格按照这个开发流程去做，有疑问可以找keke老师QQ：761008250
