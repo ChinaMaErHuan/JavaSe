@@ -31,11 +31,35 @@ import sun.misc.BASE64Encoder;
 
 public class TmStringUtils {
 	public static int DEFAULT_BUFFER_SIZE = 1024;
-
+	
+	
+	/**
+	 * 
+	 * 特殊字符的转换
+	 * toolsUtils.StringUtils 
+	 * 方法名：conversionSpecialCharacters
+	 * 创建人：maerhuan 
+	 * 时间：2017年1月2日-上午3:32:53 
+	 * @param string
+	 * @return String
+	 * @exception 
+	 * @since  1.0.0
+	 */
 	public static String conversionSpecialCharacters(String string) {
 		return string.replaceAll("\\\\", "/");
 	}
-
+	/**
+	 * 
+	 * string转换boolean
+	 * toolsUtils.StringUtils 
+	 * 方法名：stringToBoolean
+	 * 创建人：maerhuan 
+	 * 时间：2017年1月2日-上午3:30:54 
+	 * @param booleanString
+	 * @return Boolean
+	 * @exception 
+	 * @since  1.0.0
+	 */
 	public static Boolean stringToBoolean(String booleanString) {
 		if (TmStringUtils.isNotEmpty(booleanString)
 				&& booleanString.equals("true")) {
@@ -44,7 +68,19 @@ public class TmStringUtils {
 			return false;
 		}
 	}
-
+	/**
+	 * 
+	 * list转换strig
+	 * toolsUtils.StringUtils 
+	 * 方法名：listToString
+	 * 创建人：maerhuan 
+	 * 时间：2017年1月2日-上午3:31:14 
+	 * @param params
+	 * @param sepator
+	 * @return String
+	 * @exception 
+	 * @since  1.0.0
+	 */
 	public static String listToString(List<String> params, String sepator) {
 		if (params.size() > 0) {
 			StringBuffer buffer = new StringBuffer();
@@ -65,7 +101,18 @@ public class TmStringUtils {
 			return String.valueOf(string);
 		}
 	}
-
+	/**
+	 * 
+	 * 对象转换string
+	 * toolsUtils.StringUtils 
+	 * 方法名：getString
+	 * 创建人：maerhuan 
+	 * 时间：2017年1月2日-上午3:32:00 
+	 * @param object
+	 * @return String
+	 * @exception 
+	 * @since  1.0.0
+	 */
 	public static String getString(Object object) {
 		if (object == null)
 			return "";

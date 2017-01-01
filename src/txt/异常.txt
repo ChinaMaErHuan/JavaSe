@@ -40,6 +40,9 @@
 	int a = Interger.parseInt("test"); 
 	NullPointerExceptionexte nds 
 	 
+	 
+	 
+	 
 	除了RuntimeException，其他继承自java.lang.Exception得异常统称为Checked Exception,他们有多少种呢?
 	下面是JDK API中列出的异常类: 
 	除了 RuntimeException以外的,都是checked Exception ：

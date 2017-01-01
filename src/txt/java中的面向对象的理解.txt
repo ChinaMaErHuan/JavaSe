@@ -73,7 +73,7 @@
 	 * 在java中每一个关键字它们是各司其职的，
 	 * 配合使用是没有任何关系的，也不会改变每个关键词的修饰成员变量和属性 方法和类的特征.
 	 * 被final修饰的引用数据类型不能是null
-	 没有被final修饰的变量byte，short，char相加后会自动提升为int
+	 	没有被final修饰的变量byte，short，char相加后会自动提升为int
 	 byte a = 1，b=2,c,d;
 	 final byte a3 = 4,v = 6;
 	 byte c = a3+v  不会报错
