@@ -1,0 +1,31 @@
+	1、默认情况（没有覆盖equals方法）下equals方法都是调用Object类的equals方法，
+	而Object的equals方法主要用于判断对象的内存地址引用是不是同一个地址（是不是同一个对象）。
+	
+	
+	这里的对象值得就是你定义的类 比如Person Student 
+	和封装数据类型是不一样的  封装数据类型.equals()方法的时候 判断的是值 String和封装数据类型的类已经覆盖了equals方法 比较的是内容
+	
+	如果要覆盖Object的equals的方法，一定要满足以下几个等价关系：
+	
+	1. 自反性，对于任何非null的引用值x，x.equals(x)必须反回true
+	
+	2. 对称性，对于任何非null的引用值x，y,当且仅当y.equals(x)返回true时，x.equals(y),才返回true.
+	
+	3. 传递性，对于任何非null的引用值x，y，z，如果x.equals(y)返回true，并且y.equals(z)返回ture，那 么x.equals(z)也必须返回true.
+	
+	4. 一致性，对于任何非null的引用值x，y，只要equals比较操作的两个对象中所用的信息没有被修改，多次 调用x.equals(y)就会一致的返回true,或者一致的返回false.
+	
+	5.对于任何的非null的值x,x.equals(null),必须返回false .
+	
+	
+	
+	2 、要是类中覆盖了equals方法，那么就要根据具体的代码来确定equals方法的作用了，
+	覆盖后一般都是通过对象的内容是否相等来判断对象是否相等。
+	
+	
+	
+	// hashCode是jdk根据对象的地址或者字符串或者数字算出来的int类型的数值
+	   //因为判断对象是否相等 java先去判断hashcode 
+        //如果hashcode不等 那么equals绝对不等 
+        //equals相等 hashcode一定相等
+        //hashcode相等 equals不一定相等

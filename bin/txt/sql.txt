@@ -1,0 +1,12 @@
+	连接查询:
+	left join on --1对N N对一   N对N
+	right join on---右外查询
+	(inner) join on ----内连接查询(一对一的关系)--拆表
+	
+	select * from tz_content c join tz_channel on c.channel_id = ch.id where c.channel_id = 2;
+	笛卡儿积
+	
+	关系:主表---从表
+	主表关联从表的时候 主表一般是数据量很大的表
+	主表N----从表1 left join
+	

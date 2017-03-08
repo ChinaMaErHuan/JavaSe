@@ -91,7 +91,6 @@ public class MehDateUtil {
 		try {
 			return new SimpleDateFormat(pattern).parse(dateString);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;	

@@ -1,0 +1,54 @@
+/*
+	 * 自定义标签的第一步：
+	 * 1:继承TagSupport 或者BodyTagSupport
+	 * 2:覆盖里面对应标签的方法 快捷键：Alt+Shift+S
+	 * 3:注册：tld文件中注册标签
+	 * 4:引入：<%@taglib uri="WEB=INF/tld/tz/tld" prefix="tz" %>
+	 * 5:调用
+	 * <div></div>
+	 * <br/>
+	 * 
+	 * 
+	 * 后台标签类注意点：
+	 * 1:定义标签属性，只需要生成set方法即可,必须和tld文件中的属性名保持一致
+	 * 2:
+	 * doStartTag:
+	 * SKIP_BODY:忽略标签体的主题内容，这默认值
+	 * EVAL_BODY_INCLUDE:要求JSP容器记性执行标签体内容并将结果返回给页面
+	 
+	 * */
+	 
+	 注册标签的步骤:
+	 <!-- *********************Tag自定义标签开始********************** -->
+  <tag>
+  	<!--标签的描述-->
+  	<description>自定义循环标签</description>
+  	<!-- 标签名称 -->
+  	<name>loop</name>
+  	<!-- 对应的类 -->
+  	<tag-class>com.tz.tag.TzLoopTag</tag-class>
+  	<!-- 
+  		它决定标签的格式，（就是决定是否有标签体 ）
+  		empty:没有标签体<tz:loop />
+  		scriptless:你的标签体可以用EL表达式或者JSP的动作元素，但是不能用JSP脚本<%%>
+  		JSP:可以支持JSP动作代表 解析El表达和JSP所有的动作部分
+  		tagdependent:它忽略动作部分，打印纯文本
+  	 -->
+  	<body-content>scriptless</body-content>
+  	<attribute>
+  		<!-- 属性的名称 -->
+  		<name>items</name>
+  		<!-- 属性是否是必须，如果不写，会报错，默认false -->
+  		<required>true</required>
+  		<!-- 是否在运行期间支持el表达 默认是:false-->
+  		<rtexprvalue>true</rtexprvalue>
+  	</attribute>
+  	<attribute>
+  		<!-- 属性的名称 -->
+  		<name>var</name>
+  		<!-- 属性是否是必须，如果不写，会报错，默认false -->
+  		<required>true</required>
+  		<!-- 是否在运行期间支持el表达 默认是:false-->
+  		<rtexprvalue>false</rtexprvalue>
+  	</attribute>
+asdasdasda

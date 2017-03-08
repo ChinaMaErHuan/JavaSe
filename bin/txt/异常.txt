@@ -1,0 +1,469 @@
+	Checked 和 UnChecked 异常 的使用场合
+	
+	主题 Java 数据库
+	异常的概念   
+	
+	       任何的异常都是Throwable类（为何不是接口？？），并且在它之下包含两个字类Error / Exception，而Error仅在当在Java虚拟机中发生动态连接失败或其它的定位失败的时候，Java虚拟机抛出一个Error对象。典型的简易程序不捕获或抛出Errors对象，你可能永远不会遇到需要实例化Error的应用，那就让我们关心一下Exception。
+	
+	       Exception中比较重要的就是RuntimeException（运行时异常）－可能在执行方法期间抛出但未被捕获的 RuntimeException 的任何子类都无需在 throws 子句中进行声明，也就是说你的应用应该不去“关心”（说不关心是不服责任的，但只是你不应该试图实例化它的字类）。  RuntimeException，
+	       就如同你不应该关心Error的产生与处理一样！RuntimeException描述的是程序的错误引起来的，
+	       因该由程序负担这个责任！（ 从责任这个角度看Error属于JVM需要负担的责任;RuntimeException是程序应该负担的责任;checked exception 是具体应用负担的责任 ）
+	
+	        除了Error与RuntimeException，其他剩下的异常都是你需要关心的，而这些异常类统称为Checked Exception,至于Error与RuntimeException则被统称为Unchecked Exception.
+	
+	关于 Java 中引入的 Checked Exceptions，目前存在着很多反对意见。正方的观点是引入 Checked Exceptions，可以增加程度的鲁棒性。反方的观点是 Checked Exceptions 很少被开发人员正确使用过，并且降低了程序开发的生产率和代码的执行效率。  
+	
+	Java 中定义了两类异常 ：  
+	
+	1) Checked exception: 这类异常都是Exception的子类 。异常的向上抛出机制进行处理，如果子类可能产生A异常，那么在父类中也必须throws A异常。可能导致的问题：代码效率低，耦合度过高。C#中就没有使用这种异常机制。 
+	
+	2)  Unchecked exception: 这类异常都是RuntimeException的子类 ，虽然RuntimeException同样也是Exception的子类，但是它们是特殊的，它们不能通过client code来试图解决，所以称为Unchecked exception 。  
+	
+	   
+	
+	什么是unchecked异常?
+	即RuntimeException（运行时异常） 
+	不需要try...catch...或throws 机制去处理的异常 
+	列举最常用的五种RuntimeException:       
+	这是JAVA认证考试中最常见的题目,事实上,runtime exception中最常见的,经常碰到的,也就5,6种,如下: 
+	 ArithmeticException	int a=0; 
+	int b= 3/a;
+	 ClassCastException：	Object x = new Integer(0); 
+	System.out.println((String)x);
+	  IndexOutOfBoundsExceptio n 
+	       ArrayIndexOutOfBoundsExc eption, 
+	       StringIndexOutOfBoundsEx ception  
+	int [] numbers = { 1, 2, 3 }; 
+	int sum = numbers[3];
+	IllegalArgumentException 
+	       NumberFormatException 
+	int a = Interger.parseInt("test"); 
+	NullPointerExceptionexte nds 
+	 
+	 
+	 
+	 
+	除了RuntimeException，其他继承自java.lang.Exception得异常统称为Checked Exception,他们有多少种呢?
+	下面是JDK API中列出的异常类: 
+	除了 RuntimeException以外的,都是checked Exception ：
+	AclNotFoundException, 
+	ActivationException, 
+	AlreadyBoundException, 
+	ApplicationException, 
+	AWTException, 
+	BackingStoreException, 
+	BadAttributeValueExpExce ption, 
+	BadBinaryOpValueExpExcep tion, 
+	BadLocationException, 
+	BadStringOperationExcept ion, 
+	BrokenBarrierException, 
+	CertificateException, 
+	ClassNotFoundException, 
+	CloneNotSupportedExcepti on, 
+	DataFormatException, 
+	DatatypeConfigurationExc eption, 
+	DestroyFailedException, 
+	ExecutionException, 
+	ExpandVetoException, 
+	FontFormatException,
+	GeneralSecurityException , 
+	GSSException, 
+	IllegalAccessException, 
+	IllegalClassFormatExcept ion, 
+	InstantiationException, 
+	InterruptedException, 
+	IntrospectionException, 
+	InvalidApplicationExcept ion, 
+	InvalidMidiDataException , 
+	InvalidPreferencesFormat Exception, I
+	nvalidTargetObjectTypeE xception, 
+	InvocationTargetExceptio n, 
+	IOException, J
+	AXBException, 
+	JMException, 
+	KeySelectorException, 
+	LastOwnerException, 
+	LineUnavailableException , 
+	MarshalException, 
+	MidiUnavailableException , 
+	MimeTypeParseException, 
+	MimeTypeParseException, 
+	NamingException, 
+	NoninvertibleTransformEx ception, 
+	NoSuchFieldException, 
+	NoSuchMethodException, 
+	NotBoundException, 
+	NotOwnerException, 
+	ParseException, 
+	ParserConfigurationExcep tion, 
+	PrinterException, PrintException, 
+	PrivilegedActionExceptio n,
+	 PropertyVetoException, 
+	 RefreshFailedException, 
+	 RemarshalException,  
+	 RuntimeException , 
+	 SAXException, ScriptException, 
+	 ServerNotActiveException , 
+	 SOAPException, 
+	 SQLException, 
+	 TimeoutException, 
+	 TooManyListenersExceptio n, 
+	 TransformerException, 
+	 TransformException, 
+	 UnmodifiableClassExcepti on, 
+	 UnsupportedAudioFileExce ption, 
+	 UnsupportedCallbackExcep tion, 
+	 UnsupportedFlavorExcepti on, 
+	 UnsupportedLookAndFeelEx ception, 
+	 URIReferenceException, 
+	 URISyntaxException, 
+	 UserException, 
+	 XAException, 
+	 XMLParseException, 
+	 XMLSignatureException, 
+	 XMLStreamException, 
+	 XPathException 
+	
+	
+	Java 中定义了两类异常：
+	
+	1) Checked exception: 这类异常都是Exception的子类 。异常的向上抛出机制进行处理，如果子类可能产生A异常，那么在父类中也必须throws A异常。可能导致的问题：代码效率低，耦合度过高。C#中就没有使用这种异常机制。
+	
+	2) Unchecked exception: 这类异常都是RuntimeException的子类，虽然RuntimeException同样也是Exception的子类，但是它们是特殊的，它们不能通过client code来试图解决，所以称为Unchecked exception 。 
+	 
+	
+	checked exception是需要强制catch的异常，你在调用这个方法的时候，你如果不catch这个异常，那么编译器就会报错，比如说我们读写文件的时候会catch IOException，执行数据库操作会有SQLException等  
+	UnChecked Exception是RuntimeException，也就是说运行时的异常，这种异常不是必须需要catch的，你是无法预料的，比如说你在调用一个list.szie()的时候，如果这个list为null，那么就会报NUllPointerException，而这个异常就是RuntimeException，也就是UnChecked Exception 
+	 
+	
+	Error和RuntimeException及其子类是unchecked exception.其他exception是checked exception.  
+	checked exception可以出现在throws子句中，unchecked exception不可以。  
+	Error是java自己的错误或者诸如内存耗尽等严重错误，是不可抗拒的，显然没有捕捉的必要，而且也没有办法捕捉。  
+	RuntimeException是你的程序有逻辑错误，是程序员应该积极避免其出现的异常。比如NullPointerException等，完全是程序员马虎出的错。当遇到这种错误时，java将这个错误自动捕捉到，比如显示到concole里，然后继续运行。而checked exception如果不捕捉则会导致程序终止。 
+	  
+	error 表示恢复不是不可能但很困难的情况下的一种严重问题。比如说内存溢出。不可能指望程序能处理这样的情况。
+	
+	exception 表示一种设计或实现问题。也就是说，它表示如果程序运行正常，从不会发生的情况
+	
+	error和excption的区别 
+	  
+	Error的继承关系： 
+	  
+	java.lang.Object
+	
+	--java.lang.Throwable 
+	  
+	--java.lang.Error 
+	  
+	Exception的继承关系： 
+	  
+	java.lang.Object 
+	  
+	--java.lang.Throwable 
+	  
+	--java.lang.Exception 
+	  
+	二者的不同之处： 
+	  
+	Exception： 
+	  
+	1．可以是可被控制(checked) 或不可控制的(unchecked) 
+	  
+	2．表示一个由程序员导致的错误 
+	  
+	3．应该在应用程序级被处理 
+	  
+	Error： 
+	  
+	1．总是不可控制的(unchecked) 
+	  
+	2．经常用来用于表示系统错误或低层资源的错误 
+	  
+	3．如何可能的话，应该在系统级被捕捉
+	
+	 一、常见异常的类型与原因。  
+	
+	    对于Java应用程序的常见异常，笔者认为程序开发人员要从两个方面去了解。一是要知道有哪些常见的Java应用程序异常，二是需要知道哪些原因可能会造成这个异常。这不仅需要程序管理人员在日常工作中要注意积累，在必要的情况下还需要去从其它渠道收集资料。笔者对此就进行一个分析，希望能够对各位程序开发人员有一定的帮助。  
+	
+	    1、 SQLException：操作数据库异常类。  
+	
+	    现在的Java应用程序大部分都是依赖于数据库运行的。当Java应用程序与数据库进行沟通时如果产生了错误，就会触发这个类。同时会将数据库的错误信息通过这个类显示给用户。也就是说，这个操作数据库异常类是数据库与用户之间异常信息传递的桥梁。如现在用户往系统中插入数据，而在数据库中规定某个字段必须唯一。当用户插入数据的时候，如果这个字段的值跟现有的纪录重复了，违反了数据库的唯一性约束，此时数据库就会跑出一个异常信息。这个信息一般用户可能看不到，因为其发生在数据库层面的。此时这个操作数据库异常类就会捕捉到数据库的这个异常信息，并将这个异常信息传递到前台。如此的话，前台用户就可以根据这个异常信息来分析发生错误的原因。这就是这个操作数据库异常类的主要用途。在Java应用程序中，所有数据库操作发生异常时，都会触发这一个类。所有此时Java应用程序本身的提示信息往往过于笼统，只是说与数据库交互出现错误，没有多大的参考价值。此时反而是数据库的提示信息更加有使用价值。  
+	
+	    2、 ClassCastException：数据类型转换异常。  
+	
+	    在Java应用程序中，有时候需要对数据类型进行转换。这个转换包括显示的转换与隐式的转换。不过无论怎么转换，都必须要符合一个前提的条件，即数据类型的兼容性。如果在数据转换的过程中，违反了这个原则，那么就会触发数据类型转换异常。如现在在应用程序中，开发人员需要将一个字符型的日期数据转换为数据库所能够接受的日期型数据，此时只需要在前台应用程序中进行控制，一般不会有问题。但是，如果前台应用程序缺乏相关的控制，如用户在输入日期的时候只输入月、日信息，而没有年份的信息。此时应用程序在进行数据类型转换的时候，就会出现异常。根据笔者的经验，数据类型转换异常在应用程序开发中使一个出现的比较多的异常，也是一个比较低级的异常。因为大部分情况下，都可以在应用程序窗口中对数据类型进行一些强制的控制。即在数据类型进行转换之前，就保证数据类型的兼容性。如此的话，就不容易造成数据类型的转换异常。如在只允许数值类型的字段中，可以设置不允许用户输入数值以外的字符。虽然说有了异常处理机制，可以保证应用程序不会被错误的运行。但是在实际开发中，还是要尽可能多的预见错误发生的原因，尽量避免异常的发生。  
+	
+	    3、 NumberFormatException：字符串转换为数字类型时抛出的异常。  
+	
+	    在数据类型转换过程中，如果是字符型转换为数字型过程中出现的问题，对于这个异常在Java程序中采用了一个独立的异常，即NumberFormatException.如现在讲字符型的数据“123456”转换为数值型数据时，是允许的。但是如果字符型数据中包含了非数字型的字符，如123#56，此时转换为数值型时就会出现异常。系统就会捕捉到这个异常，并进行处理。  
+	
+	Java应用程序中常见的异常类还有很多。如未找到相应类异常、不允许访问某些类异常、文件已经结束异常、文件未找到异常、字段未找到异常等等。一般系统开发人员都可以根据这个异常名来判断当前异常的类型。虽然不错，但是好记性不如烂笔头。程序开发人员在必要的时候（特别是存在自定义异常的时候），最后手头有一份异常明细表。如此的话，无论是应用程序在调试过程中发现问题，还是运行过程中接到用户的投诉，都可以及时的根据异常名字来找到异常发生的原因。从而可以在最短时间内解决异常，恢复应用程序的正常运行。这个措施笔者用了很多年，非常的有效。  
+	
+	    二、异常管理的实用建议。  
+	
+	    对于操作数据库异常来说，Java应用程序只提供了一个异常类。故光凭Java应用程序的错误信息，往往不能够帮助应用程序人员排除错误的原因。只能够指名是应用程序错误还是数据库错误导致的这个异常。为了更进一步指明问题的原因，在数据库层面定义异常的时候，最好能够说明具体的原因。如前台应用程序可能会调用数据库的函数或者过程。此时在数据库的函数或者过程中做好能够说明某个异常的具体原因。如根据某个基础表生成另一张表的时候，某个字段不能够为空等等。将这些异常信息说明清楚后，如果真的遇到类似的异常时，操作数据库异常类就会将数据库的异常信息反会给前台用户。从而有利于用户寻找问题的原因，并在最短时间内改正。当然，这需要Java程序员与数据库设计人员进行协调。  
+	
+	    其次需要注意的是，异常并不是常态。也就是说，大部分异常可以通过前提的合理预见与预防，来消除。如设计到四则运算，可以在前台应用程序窗口中限制在除数字段内输入0值等手段来消除应用程序运行中可能产生的异常。不过这往往要求应用程序开发人员有比较丰富的工作经验以及由比较严密的思维逻辑。虽然这有一定的难度，但是笔者认为程序开发人员还是应该往这方面努力，而不要老是让用户作为你的试验品，让用户来发现应用程序中的设计Bug.笔者认为，只有一些实在是程序人员无法控制的因素才允许抛出异常。如果应用程序开发人员能够意识到这种错误、但是仍然没有引起重视或者采取有效的措施防止出现这种异常，那么笔者是不允许的。
+	
+	ArithmeticException（除数为0的异常）, BufferOverflowException（缓冲区上溢异常）, BufferUnderflowException（缓冲区下溢异常）, IndexOutOfBoundsException（出界异常）, NullPointerException（空指针异常）, EmptyStackException（空栈异常）, IllegalArgumentException（不合法的参数异常）, NegativeArraySizeException, NoSuchElementException, SecurityException, SystemException, UndeclaredThrowableException
+	
+	1. java.lang.NullPointerException 
+	异常的解释是"程序遇上了空指针"，简单地说就是调用了未经初始化的对象或者是不存在的对象，即把数组的初始化和数组元素的初始化混淆起来了。数组的初始化是对数组分配需要的空间，而初始化后的数组，其中的元素并没有实例化，依然是空的，所以还需要对每个元素都进行初始化（如果要调用的话） 
+	2. java.lang.ClassNotFoundException 异常的解释是"指定的类不存在"。 
+	3. java.lang.ArithmeticException 这个异常的解释是"数学运算异常"，比如程序中出现了除以零这样的运算就会出这样的异常。 
+	4. java.lang.ArrayIndexOutOfBoundsException 
+	异常的解释是"数组下标越界"，现在程序中大多都有对数组的操作，因此在调用数组的时候一定要认真检查，看自己调用的下标是不是超出了数组的范围，一般来说，显示（即直接用常数当下标）调用不太容易出这样的错，但隐式（即用变量表示下标）调用就经常出错了，还有一种情况，是程序中定义的数组的长度是通过某些特定方法决定的，不是事先声明的，这个时候，最好先查看一下数组的length，以免出现这个异常。 
+	5. java.lang.IllegalArgumentException 
+	这个异常的解释是"方法的参数错误"，比如g.setColor(int red,int green,int blue)这个方法中的三个值，如果有超过２５５的也会出现这个异常，因此一旦发现这个异常，我们要做的，就是赶紧去检查一下方法调用中的参数传递是不是出现了错误。 
+	6. java.lang.IllegalAccessException 
+	这个异常的解释是"没有访问权限"，当应用程序要调用一个类，但当前的方法即没有对该类的访问权限便会出现这个异常。对程序中用了Package的情况下要注意这个异常
+	
+	一．异常介绍
+	
+	任何的异常都是 Throwable 类，并且在它之下包含两个字类 Error / Exception ，而 Error 仅在当在 Java 虚拟机中发生动态连接失败或其它的定位失败的时候， Java 虚拟机抛出一个 Error 对象。典型的简易程序不捕捉或抛出 Errors 对象，你可能永远不会碰到需要实例化 Error 的应用，那就让我们关心一下 Exception 。
+	
+	Unchecked Exception . ：包括  Error 与 RuntimeException.  这类异常都是 RuntimeException 的子类。
+	
+	Checked Exception : 除了 Error 与 RuntimeException ，其他剩下的异常 .  这类异常都是 Exception 的子类   。在编译时在语法上必须处理的异常，因此必须在语法上以 try..catch 加以处理；
+	
+	二．设计异常的最佳实践   （ Best Practises for Designing the API ）
+	
+	 1 ．   当要决定是采用 checked exception 还是 Unchecked exception 的时候，你要问自己一个问题， “ 如果这种异常一旦抛出，客户端会做怎样的补救？ ”
+	
+	[ 原文： When deciding on checked exceptions vs. unchecked exceptions, ask yourself, "What action can the client code take when the exception occurs?"]
+	
+	如果客户端可以通过其他的方法恢复异常，那么这种异常就是 checked exception ；如果客户端对出现的这种异常无能为力，那么这种异常就是 Unchecked exception ；从使用上讲，当异常出现的时候要做一些试图恢复它的动作而不要仅仅的打印它的信息，总来的来说，看下表：
+	
+	Client's reaction when exception happens
+	
+	Exception type
+	
+	Client code cannot do anything
+	
+	Make it an unchecked exception
+	
+	Client code will take some useful recovery action based on information in exception
+	
+	Make it a checked exception
+	
+	此外，尽量使用 unchecked exception 来处理编程错误：因为 unchecked exception 不用使客户端代码显示的处理它们，它们自己会在出现的地方挂起程序并打印出异常信息。 Java API 中提供了丰富的 unchecked excetpion ，譬如： NullPointerException , IllegalArgumentException  和  IllegalStateException 等，因此我一般使用这些标准的异常类而不愿亲自创建新的异常类，这样使我的代码易于理解并避免的过多的消耗内存。
+	
+	  2 ．   保护封装性（ Preserve encapsulation ）
+	
+	不要让你要抛出的 checked exception 升级到较高的层次。例如，不要让 SQLException 延伸到业务层。业务层并不需要（不关心？） SQLException 。你有两种方法来解决这种问题：
+	
+	l          转变 SQLException 为另外一个 checked exception ，如果客户端并不需要恢复这种异常的话；
+	
+	l          转变 SQLException 为一个 unchecked exception ，如果客户端对这种异常无能为力的话；
+	
+	多数情况下，客户端代码都是对 SQLException 无能为力的，因此你要毫不犹豫的把它转变为一个 unchecked exception ，看看下边的代码：
+	
+	  public void dataAccessCode(){
+	
+	    try{
+	
+	        ..some code that throws SQLException
+	
+	    }catch(SQLException ex){
+	
+	        ex.printStacktrace();
+	
+	    }
+	
+	}
+	
+	上边的 catch 块紧紧打印异常信息而没有任何的直接操作，这是情有可原的，因为对于 SQLException 你还奢望客户端做些什么呢？（但是显然这种就象什么事情都没发生一样的做法是不可取的）那么有没有另外一种更加可行的方法呢？
+	
+	  public void dataAccessCode(){
+	
+	    try{
+	
+	        ..some code that throws SQLException
+	
+	    }catch(SQLException ex){
+	
+	        throw new RuntimeException(ex);
+	
+	    }
+	
+	}
+	
+	  上边的做法是把 SQLException 转换为 RuntimeException ，一旦 SQLException 被抛出，那么程序将抛出 RuntimeException, 此时程序被挂起并返回客户端异常信息。
+	
+	  如果你有足够的信心恢复它当 SQLException 被抛出的时候，那么你也可以把它转换为一个有意义的 checked exception,  但是我发现在大多时候抛出 RuntimeException 已经足够用了。
+	
+	  3 ．   不要创建没有意义的异常（ Try not to create new custom exceptions if they do not have useful information for client code. ）
+	
+	看看下面的代码有什么问题？
+	
+	public class DuplicateUsernameException
+	
+	    extends Exception {}
+	
+	它除了有一个 “ 意义明确 ” 的名字以外没有任何有用的信息了。不要忘记 Exception 跟其他的 Java 类一样，客户端可以调用其中的方法来得到更多的信息。
+	
+	我们可以为其添加一些必要的方法，如下：
+	
+	public class DuplicateUsernameException
+	
+	    extends Exception {
+	
+	    public DuplicateUsernameException
+	
+	        (String username){....}
+	
+	    public String requestedUsername(){...}
+	
+	    public String[] availableNames(){...}
+	
+	}
+	
+	在新的代码中有两个有用的方法： reqeuestedUsername(), 客户但可以通过它得到请求的名称； availableNames(), 客户端可以通过它得到一组有用的 usernames 。这样客户端在得到其返回的信息来明确自己的操作失败的原因。但是如果你不想添加更多的信息，那么你可以抛出一个标准的 Exception:
+	
+	throw new Exception("Username already taken");
+	
+	更甚的情况，如果你认为客户端并不想用过多的操作而仅仅想看到异常信息，你可以抛出一个 unchecked exception:
+	
+	throw new RuntimeException("Username already taken");
+	
+	另外，你可以提供一个方法来验证该 username 是否被占用。
+	
+	  很有必要再重申一下， checked exception 应该让客户端从中得到丰富的信息。要想让你的代码更加易读，请倾向于用 unchecked excetpion 来处理程序中的错误（ Prefer unchecked exceptions for all programmatic errors ）。
+	
+	4 ．  Document exceptions.
+	
+	你可以通过 Javadoc’s @throws  标签来说明（ document ）你的 API 中要抛出 checked exception 或者 unchecked exception 。然而，我更倾向于使用来单元测试来说明（ document ）异常。不管你采用哪中方式，你要让客户端代码知道你的 API 中所要抛出的异常。这里有一个用单元测试来测试 IndexOutOfBoundsException 的例子：
+	
+	public void testIndexOutOfBoundsException() {
+	
+	    ArrayList blankList = new ArrayList();
+	
+	    try {
+	
+	        blankList.get(10);
+	
+	        fail("Should raise an IndexOutOfBoundsException");
+	
+	    } catch (IndexOutOfBoundsException success) {}
+	
+	}
+	
+	 
+	
+	上边的代码在请求 blankList.get(10) 的时候会抛出 IndexOutOfBoundsException, 如果没有被抛出，将 fail( "Should raise an IndexOutOfBoundsException" ) 显示说明该测试失败。通过书写测试异常的单元测试，你不但可以看到异常是怎样的工作的，而且你可以让你的代码变得越来越健壮。
+	
+	  三． 使用异常的最佳实践（ Best Practices for Using Exceptions ）
+	
+	1 ．   总是要做一些清理工作 （ Always clean up after yourself ）
+	
+	如果你使用一些资源例如数据库连接或者网络连接，请记住要做一些清理工作（如关闭数据库连接或者网络连接），如果你的 API 抛出 Unchecked exception ，那么你要用 try-finally 来做必要的清理工作：
+	
+	public void dataAccessCode(){
+	
+	    Connection conn = null;
+	
+	    try{
+	
+	        conn = getConnection();
+	
+	        ..some code that throws SQLException
+	
+	    }catch(SQLException ex){
+	
+	        ex.printStacktrace();
+	
+	    } finally{
+	
+	        DBUtil.closeConnection(conn);
+	
+	    }
+	
+	}
+	
+	class DBUtil{
+	
+	    public static void closeConnection
+	
+	        (Connection conn){
+	
+	        try{
+	
+	            conn.close();
+	
+	        } catch(SQLException ex){
+	
+	            logger.error("Cannot close connection");
+	
+	            throw new RuntimeException(ex);
+	
+	        }
+	
+	    }
+	
+	}
+	
+	DBUtil 是一个工具类来关闭 Connection. 有必要的说的使用的 finally 的重要性是不管程序是否碰到异常，它都会被执行。在上边的例子中， finally 中关闭连接，如果在关闭连接的时候出现错误就抛出 RuntimeException.
+	
+	  2 ．   不要使用异常来控制流程（ Never use exceptions for flow control ）
+	
+	下边代码中， MaximumCountReachedException 被用于控制流程：
+	
+	public void useExceptionsForFlowControl() {
+	
+	   try {
+	
+	        while (true) {
+	
+	            increaseCount();
+	
+	        }
+	
+	    } catch (MaximumCountReachedException ex) {
+	
+	    }
+	
+	    //Continue execution
+	
+	}
+	
+	 
+	
+	public void increaseCount()
+	
+	    throws MaximumCountReachedException {
+	
+	    if (count >= 5000)
+	
+	        throw new MaximumCountReachedException();
+	
+	}
+	
+	上边的 useExceptionsForFlowControl() 用一个无限循环来增加count 直到抛出异常，这种做法并没有说让代码不易读，但是它是程序执行效率降低。
+	
+	记住，只在要会抛出异常的地方进行异常处理。
+	
+	3 ． 不要忽略异常
+	
+	当有异常被抛出的时候，如果你不想恢复它，那么你要毫不犹豫的将其转换为unchecked exception ，而不是用一个空的catch块或者什么也不做来忽略它，以至于从表面来看象是什么也没有发生一样。
+	
+	4 ． 不要捕获顶层的Exception
+	
+	unchecked exception 都是RuntimeException 的子类，RuntimeException又继承Exception,因此，如果单纯的捕获Exception,那么你同样也捕获了RuntimeException,如下代码：
+	
+	try{
+	
+	..
+	
+	}catch(Exception ex){
+	
+	}
+	
+	一旦你写出了上边的代码（注意 catch 块是空的），它将忽略所有的异常，包括 unchecked exception.
+	
+	5 ．  Log exceptions just once
+	
+	     Logging the same exception stack trace more than once can confuse the programmer examining the stack trace about the original source of exception. So just log it once.
+	
+	总结
+	
+	这里给出了一些关于异常处理的一些最佳实践，我并不想开始另一轮的关于 checked exception  和  unchecked exception 的争论。你可以根据自己的实际情况定制自己异常处理，我坚信我们将有更好的办法来处理我们代码中的异常
