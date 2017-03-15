@@ -24,8 +24,9 @@ public class MEHDownloadUtil {
 
 	public static void main(String[] args) {
 		//1.测试第一个方法
-//		String link = "http://www.luoo.net/";
+//		String link = "";
 //		String htmlsource = getHTMLSource(link);
+//		System.out.println(htmlsource);
 //		try {
 //			FileUtils.writeStringToFile(new File("F://luooindex.html"), htmlsource, "utf-8");
 //		} catch (IOException e) {
@@ -35,18 +36,18 @@ public class MEHDownloadUtil {
 //		String url2 = "http://7xkszy.com2.z0.glb.qiniucdn.com/pics/vol/573b56cd3e387.jpg";
 		
 //		
-		for(int j=818;j<=821;j++){
-			for(int i=1;i<=12;i++){
-				try {
-					String name = i+"";
-					if(i<10)name = "0"+i;
-					String url = "http://luoo-mp3.kssws.ks-cdn.com/low/luoo/radio"+j+"/"+name+".mp3";
-					downloadFile(url,"F://download/radio"+j);
-				} catch (Exception e) {
-					continue;
-				}
-			}
-		}
+//		for(int j=818;j<=821;j++){
+//			for(int i=1;i<=12;i++){
+//				try {
+//					String name = i+"";
+//					if(i<10)name = "0"+i;
+//					String url = "http://luoo-mp3.kssws.ks-cdn.com/low/luoo/radio"+j+"/"+name+".mp3";
+//					downloadFile(url,"F://download/radio"+j);
+//				} catch (Exception e) {
+//					continue;
+//				}
+//			}
+//		}
 	}
 
 	/**
@@ -78,6 +79,57 @@ public class MEHDownloadUtil {
 			String encoding = MehStringUtil.defaultValue(
 					connection.getContentEncoding(), "utf-8");
 			//System.out.println(encoding);
+			StringBuilder builder = new StringBuilder();
+			try (
+					InputStream inputStream = connection.getInputStream();
+					InputStreamReader isReader = new InputStreamReader(
+							inputStream,encoding);
+					BufferedReader reader = new BufferedReader(isReader);
+
+			) {
+				String lineString = "";
+				while ((lineString = reader.readLine()) != null) {
+					if (!lineString.trim().equals("")){//去掉空格行
+					builder.append(lineString + "\r\n");
+					}
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return builder.toString();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "";
+		}
+	}
+	/**
+	 * 
+	 * (这里用一句话描述这个方法的作用)</br>
+	 * class_37_Socket </br>
+	 * 方法名：getHTMLSource </br>
+	 * 创建人：maerhuan </br>
+	 * 时间：2017年3月10日-下午3:40:08 </br>
+	 * @param link
+	 * @param encoding
+	 * @return String
+	 * @exception 
+	 * @since  1.0.0
+	 */
+	public static String getHTMLSource(String link,String encoding) {
+		try {
+			// 第一步：初始化以URL对象
+			URL url = new URL(link);
+			// 第二步：获取打开URL和java程序之间连接
+			HttpURLConnection connection = (HttpURLConnection) url
+					.openConnection();
+			// connection.setConnectTimeout(6000);//6秒之内如果没有响应，此次请求结束,如果不设定是一致等待
+			// 伪装浏览器的方式去抓取网络信息
+			connection
+					.setRequestProperty(
+							"User-Agent",
+							"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36");
 			StringBuilder builder = new StringBuilder();
 			try (
 					InputStream inputStream = connection.getInputStream();
